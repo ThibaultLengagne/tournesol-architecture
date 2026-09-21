@@ -1,13 +1,24 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "confirm" | "error";
 
 const CONTACT_EMAIL = "contact@tournesolarchitecture.fr";
+const FORMSUBMIT = `https://formsubmit.co/${CONTACT_EMAIL}`;
+const FORMSUBMIT_AJAX = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
+const LIVE_THANKS = "https://tournesol-architecture-gules.vercel.app/?envoye=1";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const [nextUrl, setNextUrl] = useState(LIVE_THANKS);
+
+  useEffect(() => {
+    setNextUrl(`${window.location.origin}/?envoye=1`);
+    if (new URLSearchParams(window.location.search).get("envoye") === "1") {
+      setStatus("sent");
+    }
+  }, []);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -22,17 +33,38 @@ export function ContactForm() {
     setStatus("sending");
 
     try {
-      const response = await fetch(
-        `https://formsubmit.co/ajax/${CONTACT_EMAIL}`,
-        {
-          method: "POST",
-          headers: { Accept: "application/json" },
-          body: data,
+      const response = await fetch(FORMSUBMIT_AJAX, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          message: data.get("message"),
+          _subject: "Nouveau message — Tournesol Architecture",
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
 
-      if (!response.ok) {
-        throw new Error("FormSubmit a échoué");
+      const json = (await response.json().catch(() => null)) as {
+        success?: string | boolean;
+        message?: string;
+      } | null;
+
+      const message = String(json?.message ?? "");
+      const failed =
+        !response.ok || json?.success === "false" || json?.success === false;
+
+      if (isConfirmation(message)) {
+        setStatus("confirm");
+        return;
+      }
+
+      if (failed) {
+        throw new Error(message || "FormSubmit a échoué");
       }
 
       setStatus("sent");
@@ -53,11 +85,35 @@ export function ContactForm() {
     );
   }
 
+  if (status === "confirm") {
+    return (
+      <p
+        className="animate-fade-up border-t border-line pt-8 font-sans text-[0.95rem] leading-relaxed text-ink/80"
+        role="status"
+      >
+        Pour activer le formulaire, ouvrez l&apos;e-mail envoyé à{" "}
+        <a
+          href={`mailto:${CONTACT_EMAIL}`}
+          className="underline decoration-gold/70 underline-offset-4 hover:text-gold"
+        >
+          {CONTACT_EMAIL}
+        </a>{" "}
+        et cliquez le lien une fois. Ensuite, les messages arriveront.
+      </p>
+    );
+  }
+
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-7">
+    <form
+      action={FORMSUBMIT}
+      method="POST"
+      onSubmit={onSubmit}
+      className="flex flex-col gap-7"
+    >
       <input type="hidden" name="_subject" value="Nouveau message — Tournesol Architecture" />
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value={nextUrl} />
       <input
         type="text"
         name="_honey"
@@ -75,12 +131,7 @@ export function ContactForm() {
         autoComplete="email"
         required
       />
-      <Field
-        label="Message"
-        name="message"
-        as="textarea"
-        required
-      />
+      <Field label="Message" name="message" as="textarea" required />
 
       <button
         type="submit"
@@ -104,6 +155,10 @@ export function ContactForm() {
       )}
     </form>
   );
+}
+
+function isConfirmation(message: string) {
+  return /confirm|activation|check your email|vérif/i.test(message);
 }
 
 function Field({
@@ -130,12 +185,7 @@ function Field({
         {label}
       </span>
       {as === "textarea" ? (
-        <textarea
-          name={name}
-          required={required}
-          rows={4}
-          className={classes}
-        />
+        <textarea name={name} required={required} rows={4} className={classes} />
       ) : (
         <input
           name={name}
