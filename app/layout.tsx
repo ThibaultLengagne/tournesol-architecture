@@ -25,6 +25,14 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     type: "website",
     url: "https://tournesolarchitecture.fr",
+    images: [
+      {
+        url: "/logo.png",
+        width: 150,
+        height: 150,
+        alt: "Tournesol Architecture",
+      },
+    ],
   },
 };
 
