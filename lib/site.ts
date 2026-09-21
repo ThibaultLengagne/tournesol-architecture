@@ -1,4 +1,4 @@
-export const SITE_URL = "https://tournesolarchitecture.fr";
+export const SITE_URL = "https://www.tournesolarchitecture.fr";
 export const SITE_NAME = "Tournesol Architecture";
 export const SITE_EMAIL = "contact@tournesolarchitecture.fr";
 export const SITE_DESCRIPTION =
