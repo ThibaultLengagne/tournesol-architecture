@@ -1,32 +1,30 @@
-import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 
 export default function Home() {
   return (
-    <main className="grid min-h-dvh overflow-hidden lg:grid-cols-[minmax(22rem,42%)_1fr]">
-      <section className="relative order-2 flex flex-col px-7 py-10 sm:px-12 sm:py-14 lg:order-1 lg:px-16 lg:py-16">
-        <header className="animate-fade-up">
+    <main className="flex min-h-dvh flex-col items-center justify-center px-7 py-16 sm:px-10 sm:py-20">
+      <div className="flex w-full max-w-md flex-col">
+        <header className="animate-fade-up flex flex-col items-center text-center">
           <SunMark />
-          <h1 className="mt-6 font-serif text-[2.7rem] leading-none tracking-tight text-ink sm:text-6xl">
+          <h1 className="mt-7 font-serif text-[2.7rem] leading-none tracking-tight text-ink sm:text-6xl">
             Tournesol
           </h1>
           <p className="mt-3 font-sans text-[0.72rem] tracking-[0.42em] text-ink/60 uppercase">
             Architecture
           </p>
           <span className="mt-6 block h-px w-12 bg-gold" aria-hidden="true" />
+          <p className="mt-8 max-w-sm font-serif text-xl leading-relaxed text-ink/80 sm:text-[1.35rem]">
+            Le site est en préparation.
+            <br />
+            Pour un projet ou une question — écrivez-nous.
+          </p>
         </header>
 
-        <p className="animate-fade-up mt-10 max-w-sm font-serif text-xl leading-relaxed text-ink/80 sm:text-[1.35rem]">
-          Le site est en préparation.
-          <br />
-          Pour un projet ou une question — écrivez-nous.
-        </p>
-
-        <div className="animate-fade-up mt-12 max-w-md">
+        <div className="animate-fade-up mt-14 w-full">
           <ContactForm />
         </div>
 
-        <footer className="mt-16 flex flex-col gap-2 font-sans text-[0.72rem] tracking-[0.08em] text-ink/55 lg:mt-auto lg:pt-16">
+        <footer className="mt-16 flex flex-col items-center gap-2 text-center font-sans text-[0.72rem] tracking-[0.08em] text-ink/55">
           <a
             href="mailto:contact@tournesolarchitecture.fr"
             className="w-fit transition-colors hover:text-gold"
@@ -35,21 +33,7 @@ export default function Home() {
           </a>
           <p>© {new Date().getFullYear()} Tournesol Architecture</p>
         </footer>
-      </section>
-
-      <section className="relative order-1 h-[46vh] min-h-[16rem] overflow-hidden lg:order-2 lg:h-auto lg:min-h-dvh">
-        <Image
-          src="/architecture.jpg"
-          alt="Maison contemporaine en bois, éclairée à la tombée du jour"
-          fill
-          priority
-          sizes="(min-width: 1024px) 58vw, 100vw"
-          className="animate-kenburns object-cover object-[center_70%]"
-        />
-        <p className="pointer-events-none absolute right-8 bottom-10 hidden origin-right rotate-[-90deg] font-sans text-[0.65rem] tracking-[0.38em] text-white/80 uppercase lg:block">
-          Tournesol Architecture
-        </p>
-      </section>
+      </div>
     </main>
   );
 }
@@ -58,7 +42,7 @@ function SunMark() {
   return (
     <svg
       viewBox="0 0 32 32"
-      className="h-8 w-8 text-gold"
+      className="h-9 w-9 text-gold"
       aria-hidden="true"
     >
       <g fill="currentColor">

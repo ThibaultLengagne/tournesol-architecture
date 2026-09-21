@@ -30,19 +30,6 @@ body {
   }
 }
 
-@keyframes kenburns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.07);
-  }
-}
-
 .animate-fade-up {
   animation: fade-up 0.9s ease-out both;
-}
-
-.animate-kenburns {
-  animation: kenburns 32s ease-out forwards;
 }

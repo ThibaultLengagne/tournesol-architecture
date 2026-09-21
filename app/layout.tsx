@@ -25,14 +25,6 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     type: "website",
     url: "https://tournesolarchitecture.fr",
-    images: [
-      {
-        url: "/architecture.jpg",
-        width: 2400,
-        height: 1600,
-        alt: "Maison contemporaine — Tournesol Architecture",
-      },
-    ],
   },
 };
 
