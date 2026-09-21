@@ -14,7 +14,7 @@ export default function Home() {
           <p className="mt-8 max-w-sm font-sans text-xl leading-relaxed text-ink/80 sm:text-[1.35rem]">
             Le site est en préparation.
             <br />
-            Pour un projet ou une question — écrivez-nous.
+            Pour un projet ou une question, écrivez-moi.
           </p>
         </header>
 
