@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
+import { Logo } from "@/components/Logo";
 
 export default function Home() {
   return (
@@ -7,19 +7,11 @@ export default function Home() {
       <div className="flex w-full max-w-md flex-col">
         <header className="animate-fade-up flex flex-col items-center text-center">
           <h1>
-            <Image
-              src="/logo.png"
-              alt="Tournesol Architecture"
-              width={150}
-              height={150}
-              priority
-              unoptimized
-              className="h-auto w-[11.5rem] sm:w-[13.5rem]"
-              style={{ imageRendering: "pixelated" }}
-            />
+            <span className="sr-only">Tournesol Architecture</span>
+            <Logo />
           </h1>
           <span className="mt-8 block h-px w-12 bg-gold" aria-hidden="true" />
-          <p className="mt-8 max-w-sm font-serif text-xl leading-relaxed text-ink/80 sm:text-[1.35rem]">
+          <p className="mt-8 max-w-sm font-sans text-xl leading-relaxed text-ink/80 sm:text-[1.35rem]">
             Le site est en préparation.
             <br />
             Pour un projet ou une question — écrivez-nous.

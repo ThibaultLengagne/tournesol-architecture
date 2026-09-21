@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-cormorant",
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-outfit",
+const avenirNext = localFont({
+  src: [
+    {
+      path: "./fonts/AvenirNext-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/AvenirNext-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/AvenirNext-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-avenir",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -27,9 +37,9 @@ export const metadata: Metadata = {
     url: "https://tournesolarchitecture.fr",
     images: [
       {
-        url: "/logo.png",
-        width: 150,
-        height: 150,
+        url: "/logo.svg",
+        width: 1182,
+        height: 1182,
         alt: "Tournesol Architecture",
       },
     ],
@@ -40,7 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr">
       <body
-        className={`${cormorant.variable} ${outfit.variable} bg-paper font-sans text-ink antialiased`}
+        className={`${avenirNext.className} ${avenirNext.variable} bg-paper font-sans text-ink antialiased`}
       >
         {children}
       </body>
