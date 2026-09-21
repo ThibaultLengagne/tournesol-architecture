@@ -2,7 +2,7 @@
 
 Site vitrine temporaire de [tournesolarchitecture.fr](https://tournesolarchitecture.fr) — logo, nom, formulaire de contact.
 
-Les messages du formulaire arrivent sur `contact@tournesolarchitecture.fr` via [FormSubmit](https://formsubmit.co) (le navigateur envoie le formulaire à leur service, qui relaie l’e-mail). Lors du premier envoi, confirmer l’adresse en cliquant le lien reçu par e-mail.
+Les messages du formulaire arrivent sur `contact@tournesolarchitecture.fr` via [FormSubmit](https://formsubmit.co). L’activation est **par domaine** : localhost et le site Vercel comptent comme deux formulaires. Après un premier envoi depuis l’URL en ligne, cliquer le lien reçu par e-mail.
 
 ## Local
 

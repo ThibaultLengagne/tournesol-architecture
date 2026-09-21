@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import {
+  SITE_DESCRIPTION,
+  SITE_EMAIL,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
 import "./globals.css";
 
 const avenirNext = localFont({
@@ -25,25 +31,61 @@ const avenirNext = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tournesolarchitecture.fr"),
-  title: "Tournesol Architecture",
-  description:
-    "Agence d'architecture. Le site est en préparation — écrivez-nous à contact@tournesolarchitecture.fr.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "architecture",
+  keywords: [
+    "Tournesol Architecture",
+    "architecte",
+    "agence d'architecture",
+    "architecture",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   openGraph: {
-    title: "Tournesol Architecture",
-    description: "Le site est en préparation. Écrivez-nous.",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
     locale: "fr_FR",
     type: "website",
-    url: "https://tournesolarchitecture.fr",
-    images: [
-      {
-        url: "/logo.svg",
-        width: 1182,
-        height: 1182,
-        alt: "Tournesol Architecture",
-      },
-    ],
+    url: SITE_URL,
+    siteName: SITE_NAME,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  icons: {
+    icon: [{ url: "/logo.svg", type: "image/svg+xml" }],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: SITE_NAME,
+  url: SITE_URL,
+  email: SITE_EMAIL,
+  description: SITE_DESCRIPTION,
+  inLanguage: "fr",
+  image: `${SITE_URL}/logo.svg`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -52,6 +94,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body
         className={`${avenirNext.className} ${avenirNext.variable} bg-paper font-sans text-ink antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
       </body>
     </html>
